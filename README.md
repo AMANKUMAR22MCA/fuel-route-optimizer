@@ -34,7 +34,85 @@ All in **one API call**, with only **3 external requests** total (2 geocoding + 
 │  (Nominatim) │     │   (OSRM)      │     │  Stops (local)  │     │    (JSON)    │
 └─────────────┘     └──────────────┘     └────────────────┘     └─────────────┘
 ```
+```
+REQUEST
+   ↓
+views.py
+   ↓
+   ├── calls routing.py ──→ Nominatim API (geocode start)
+   │                    ──→ Nominatim API (geocode end)
+   │                    ──→ OSRM API (get route)
+   │                    ←── returns 21 waypoints + 1082 miles
+   │
+   └── calls optimizer.py
+            ↓
+            walks 21 waypoints
+            checks fuel level
+            when low ↓
+            calls fuel_data.py ──→ searches KD-Tree (no API)
+                               ←── returns cheapest station
+            records stop
+            continues walking
+            ↓
+            returns stops + total cost
+   ↓
+views.py combines everything
+   ↓
+RESPONSE → user gets JSON
+```
+```
+optimizer.py walking waypoints...
 
+Mile 50  → fuel ok, keep going
+Mile 100 → fuel ok, keep going
+Mile 150 → fuel ok, keep going
+...
+Mile 450 → fuel LOW! 
+
+optimizer.py → "Hey fuel_data.py,
+                find cheapest station
+                near (36.8, -91.5)"
+
+fuel_data.py → searches KD-Tree
+             → returns [
+                 CIRCLE K $2.959,
+                 SHELL $3.100,
+                 PILOT $3.200
+               ]
+
+optimizer.py → picks cheapest = CIRCLE K $2.959
+             → records as fuel stop at mile 472.5
+             → fills tank
+             → continues walking...
+
+Mile 500 → fuel ok
+Mile 550 → fuel ok
+...
+Mile 900 → fuel LOW again!
+
+optimizer.py → "Hey fuel_data.py,
+                find cheapest station
+                near (30.1, -94.1)"
+
+fuel_data.py → searches KD-Tree
+             → returns [
+                 STUCKEYS $2.824,
+                 LOVES $2.950,
+                 TA $3.100
+               ]
+
+optimizer.py → picks cheapest = STUCKEYS $2.824
+             → records as fuel stop at mile 927.3
+             → fills tank
+             → continues...
+
+Mile 1082 → Houston reached!
+
+optimizer.py → returns {
+  stops: [CIRCLE K, STUCKEYS],
+  total_cost: $268.25
+}
+```
 | Step | Service | Cost |
 |------|---------|------|
 | Geocoding addresses → coordinates | [Nominatim](https://nominatim.org/) (OpenStreetMap) | Free, no API key |

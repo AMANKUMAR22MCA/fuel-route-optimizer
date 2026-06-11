@@ -44,6 +44,10 @@ All in **one API call**, with only **3 external requests** total (2 geocoding + 
 The fuel station dataset (~7,000 unique stations) is loaded into memory **once at startup** and indexed with a `scipy.spatial.KDTree` for millisecond spatial lookups.
 
 ---
+## Screenshot
+```bash
+<img width="1409" height="962" alt="image" src="https://github.com/user-attachments/assets/ef4b83ee-a8df-4d1a-bf9e-3ae364da19e5" />
+```
 
 ## 🚀 Quick Start
 

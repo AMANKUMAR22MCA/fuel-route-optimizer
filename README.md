@@ -60,7 +60,8 @@ views.py combines everything
    ↓
 RESPONSE → user gets JSON
 ```
-```
+## ⚙️ Fuel Stop Algorithm
+
 A **greedy** strategy that mirrors how a real driver plans fuel stops:
 
 1. Start with a full tank (500-mile range)
@@ -70,7 +71,6 @@ A **greedy** strategy that mirrors how a real driver plans fuel stops:
 5. Repeat until destination reached
 
 Refuel amount = `tank capacity − fuel remaining` (i.e. top off to full, not always 50 gallons).
-```
 ```
 optimizer.py walking waypoints...
 

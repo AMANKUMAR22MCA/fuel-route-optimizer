@@ -55,7 +55,7 @@ The fuel station dataset (~7,000 unique stations) is loaded into memory **once a
 
 ```bash
 git clone https://github.com/AMANKUMAR22MCA/fuel-route-optimizer.git
-cd fuel-route-api
+cd fuel-route-optimizer
 ```
 
 ### 2. Create a virtual environment
@@ -78,6 +78,9 @@ pip install -r requirements.txt
 
 ```bash
 python manage.py migrate
+
+Note : after migrate  if you get any error related to numpy pr pandas its related version used 
+steps to fix chnage the requirements.txt file update  numpy==1.26.4  and pandas==2.1.4 or do this  pip install numpy==1.26.4 pandas==2.1.4
 ```
 
 ### 5. Start the server

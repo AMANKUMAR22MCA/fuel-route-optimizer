@@ -61,6 +61,17 @@ views.py combines everything
 RESPONSE → user gets JSON
 ```
 ```
+A **greedy** strategy that mirrors how a real driver plans fuel stops:
+
+1. Start with a full tank (500-mile range)
+2. Sample route waypoints every ~50 miles
+3. At each waypoint, check: *"Can I reach the next one with a 10-mile safety buffer?"*
+4. If not → search the KD-Tree for the **cheapest station within 50 miles**, refuel to full
+5. Repeat until destination reached
+
+Refuel amount = `tank capacity − fuel remaining` (i.e. top off to full, not always 50 gallons).
+```
+```
 optimizer.py walking waypoints...
 
 Mile 50  → fuel ok, keep going

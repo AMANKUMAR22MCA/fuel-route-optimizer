@@ -1,2 +1,1 @@
-﻿
-# fuel-route-optimizer
+﻿# fuel-route-optimizer

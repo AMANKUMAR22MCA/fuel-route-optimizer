@@ -54,7 +54,7 @@ The fuel station dataset (~7,000 unique stations) is loaded into memory **once a
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/<your-username>/fuel-route-api.git
+git clone https://github.com/AMANKUMAR22MCA/fuel-route-optimizer.git
 cd fuel-route-api
 ```
 
